@@ -1,11 +1,13 @@
 import React from 'react'
+import Footer from '../Footer'
+import Header from '../Header'
 
 export default function DefaultLayout({children}) {
   return (
     <div>
-      {/* Header goes here  */}
+      <Header />
         <div className="main">{children}</div>
-      {/* Footer goes here  */}
+      <Footer />
     </div>
   )
 }

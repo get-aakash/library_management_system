@@ -12,12 +12,14 @@
   text-decoration: none;
   color: white !important;
   font-weight: bolder;
+
 }
 .main{
-  min-height: 81vh;
+  min-height:81vh ;
 }
 .hero-main-img{
   background: rgba(0,0,0,0.892);
   padding: 2rem;
-  border-radius: 10px;
+  border-radius:10px ;
+
 }
