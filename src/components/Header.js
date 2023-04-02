@@ -14,7 +14,7 @@ export default function Header() {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="ms-auto gap-4 fs-4">
-          <Link to="/" title='home'><i class="fa-solid fa-house"></i></Link>
+          <Link to="/" title='home'><i className="fa-solid fa-house"></i></Link>
             <Link to="/signup" title='signUp'><i className="fa-solid fa-user-pen"></i></Link>
             <Link to="signin" title='signIn'><i className="fa-solid fa-right-to-bracket"></i></Link>
             

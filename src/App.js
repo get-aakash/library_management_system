@@ -9,7 +9,8 @@ import Home from "./pages/home/Home";
 import BookLanding from "./pages/landing/BookLanding";
 import SignIn from "./pages/signup-signin/SignIn";
 import SignUp from "./pages/signup-signin/SignUp";
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
 
@@ -31,7 +32,7 @@ function App() {
         <Route path="admin/edit/:bookid" element={<Dashboard />}/>
 
       </Routes>
-      
+      <ToastContainer />
       
     </div>
   );
