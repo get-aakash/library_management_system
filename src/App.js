@@ -11,8 +11,24 @@ import SignIn from "./pages/signup-signin/SignIn";
 import SignUp from "./pages/signup-signin/SignUp";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { useDispatch } from "react-redux";
+import { onAuthStateChanged } from "firebase/auth";
+import { setUser } from "./pages/signup-signin/userSlice";
+import { auth } from "./firebase-config/firebase-config";
+import { PrivateRoute } from "./components/private-route/PrivateRoute";
 
 function App() {
+
+  const dispatch = useDispatch()
+
+  onAuthStateChanged(auth, (user)=>{
+    const obj = {
+      uid: user?.uid,
+      email:user?.email,
+      displayName: user?.displayName
+    }
+    dispatch(setUser(obj))
+  })
 
 
   return (
@@ -25,7 +41,11 @@ function App() {
         <Route path="/:bookId" element={<BookLanding />}/>
 
         {/* private routers  */}
-        <Route path="dashboard" element={<Dashboard />}/>
+        <Route path="dashboard" element={
+          <PrivateRoute>
+        <Dashboard />
+        </PrivateRoute>
+        }/>
         <Route path="admin/books" element={<BookList />}/>
         <Route path="admin/new" element={<NewBooks />}/>
         <Route path="borrow-history" element={<BorrowHistory />}/>

@@ -2,13 +2,18 @@ import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth'
 import { doc, setDoc } from 'firebase/firestore'
 import React, { useState } from 'react'
 import { Button, Container, Form } from 'react-bootstrap'
+import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import { CustomInput } from '../../components/custom-input/CustomInput'
 import DefaultLayout from '../../components/layout/DefaultLayout'
 import {auth, db} from "../../firebase-config/firebase-config"
+import { setUser } from './userSlice'
+
+
 export default function SignUp() {
   const navigate = useNavigate()
+  const dispatch = useDispatch();
   const [form, setForm] = useState({})
   const handleOnChange = (e)=>{
     const{name, value} = e.target
@@ -25,20 +30,28 @@ const handleOnSubmit = async(e)=>{
   }
   
   // create user in firebase 
-  const {user} = await createUserWithEmailAndPassword(auth, email, password)
+  const userPending = createUserWithEmailAndPassword(auth, email, password)
+  toast.promise(userPending,{pending:"please wait"})
+
+  const {user} = await userPending
+  
   console.log(user)
   if(user?.uid){
     updateProfile(user,{
-      displayName: name
+      displayName: name,
+      role:form.role
     })
   }
 
   // store in firestore as well 
   const obj = {
-    email,name
+    email,
+    name,
+    role:form.role
 
   }
   await setDoc(doc(db,"users",user.uid), obj)
+  dispatch(setUser({ ...obj, uid: user.uid, role: form.role }))
   toast.success("account has been created redirecting to dashboard")
 } catch (error) {
   toast.error(error.message)
@@ -85,7 +98,17 @@ navigate("/dashboard")
           <Form.Text className='mt-5 py-2'>
             Anyone can create the admin and user account
           </Form.Text>
+
+          
           <div className="mt-5">
+          <Form.Group className="mb-3" >
+            <label htmlFor="">Account Type:</label>
+            <Form.Select name='role'onChange={handleOnChange}>
+              <option value="">--Select Value--</option>
+              <option value="admin">Admin</option>
+              <option value="user">User</option>
+            </Form.Select>
+          </Form.Group>
             {inputs.map((item,i)=><CustomInput key={i} {...item} onChange={handleOnChange}/>)}
           </div>
           <div className='mt-3 d-grid'>
