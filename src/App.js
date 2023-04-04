@@ -46,7 +46,7 @@ function App() {
         <Dashboard />
         </PrivateRoute>
         }/>
-        <Route path="admin/books" element={<BookList />}/>
+        <Route path="admin/books" element={<PrivateRoute><BookList /></PrivateRoute>}/>
         <Route path="admin/new" element={<NewBooks />}/>
         <Route path="borrow-history" element={<BorrowHistory />}/>
         <Route path="admin/edit/:bookid" element={<Dashboard />}/>
