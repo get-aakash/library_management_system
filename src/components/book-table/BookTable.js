@@ -1,8 +1,10 @@
 import React from 'react'
 import { Row, Col } from 'react-bootstrap'
 import CustomRow from './CustomRow'
+import { useSelector } from 'react-redux'
 
-const BookTable = () => {
+const BookTable = ({books}) => {
+    
   return (
     <>
     <Row className="fw-bolder">
@@ -10,10 +12,13 @@ const BookTable = () => {
         <Col>Details</Col>
     </Row>
     <hr />
-    <CustomRow />
-    <CustomRow />
-    <CustomRow />
-    <CustomRow />
+    {
+        books?.map((book)=>(
+            <CustomRow key={book.id} book={book} />
+        ))
+    }
+    
+    
     </>
   )
 }

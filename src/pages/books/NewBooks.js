@@ -1,13 +1,17 @@
 import React, { useState } from 'react'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import AdminLayout from '../../components/layout/AdminLayout'
 import { Form,Button, Container } from 'react-bootstrap'
 import { CustomInput } from '../../components/custom-input/CustomInput'
+import { addBookAction } from './bookAction'
+import { useNavigate } from 'react-router-dom'
 
 
 const initialState = {thumbnail:"", title:"", summary:"", ratings:""}
 export default function NewBooks() {
+  const navigate = useNavigate()
   const [form, setForm] = useState(initialState)
+  const dispatch = useDispatch()
   const {user} = useSelector((state)=> state.user)
   if(user?.role !== "admin"){
     return <h1>Unauthorised</h1>
@@ -53,6 +57,8 @@ export default function NewBooks() {
 
  const handleOnSubmit = (e)=>{
   e.preventDefault()
+  dispatch(addBookAction(form))
+  navigate('/admin/books')
   console.log(form)
  }
   return (
