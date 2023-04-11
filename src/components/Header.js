@@ -40,6 +40,7 @@ export default function Header() {
                 <Link to="#" onClick={handleOnLogOut}>
                   <i className="fa-solid fa-person-walking-arrow-right"></i>
                 </Link>
+                
               </>
             ) : (
               <>

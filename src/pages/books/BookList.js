@@ -2,11 +2,16 @@ import React, { useEffect } from 'react'
 import AdminLayout from '../../components/layout/AdminLayout'
 import { Button,Container, Form } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
+import { useSelector } from 'react-redux'
+import BookTable from '../../components/book-table/BookTable'
 
 
 
 export default function BookList() {
-
+  const {user} = useSelector((state)=> state.user)
+  if(user?.role !== "admin"){
+    return <h1>Unauthorised</h1>
+  }
   return (
     <AdminLayout>
       <Container>
@@ -24,7 +29,7 @@ export default function BookList() {
           </Link>
           </div>
           <hr />
-          
+          <BookTable />
       </Container>
     </AdminLayout>
   )
