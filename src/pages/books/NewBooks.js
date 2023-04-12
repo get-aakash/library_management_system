@@ -4,7 +4,7 @@ import AdminLayout from '../../components/layout/AdminLayout'
 import { Form,Button, Container } from 'react-bootstrap'
 import { CustomInput } from '../../components/custom-input/CustomInput'
 import { addBookAction } from './bookAction'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 
 const initialState = {thumbnail:"", title:"", summary:"", ratings:""}
@@ -64,7 +64,11 @@ export default function NewBooks() {
   return (
     <AdminLayout>
       <Container>
+        
         <Form onSubmit={handleOnSubmit} className='w-75 m-auto border rounded p-2 mt-5'>
+          <Link to="/admin/books">
+        <Button variant='secondary'>&lt; Back</Button>
+        </Link>
         <h4 className='mt-4'>Add New Book</h4>
         <hr />
         {

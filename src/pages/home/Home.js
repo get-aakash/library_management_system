@@ -1,10 +1,25 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Container, Form } from 'react-bootstrap'
 import { CustomCard } from '../../components/custom-card/CustomCard'
 import { Hero } from '../../components/home/Hero'
 import DefaultLayout from '../../components/layout/DefaultLayout'
+import HomeList from '../../components/home-list/HomeList'
+import { useSelector } from 'react-redux'
 
 export default function Home() {
+  const [display, setDisplay] = useState([])
+  const {books} = useSelector((state)=>state.books)
+
+  useEffect(()=>{
+    setDisplay(books)
+  },[books])
+
+  const handleOnChange = (e)=>{
+    const {value} = e.target
+    const matchingBooks = books.filter(({title})=>title.toLowerCase().includes(value.toLowerCase()))
+    setDisplay(matchingBooks)
+  }
+
   return (
     <DefaultLayout>
       <Hero/>
@@ -15,32 +30,11 @@ export default function Home() {
         <div className='py-4 d-flex justify-content-between'>
           <h3>Browse Library</h3>
           <div className="w-10">
-          <Form.Control type="text" placeholder='search' />
+          <Form.Control type="text" placeholder='search' onChange={handleOnChange}/>
         </div>
         </div>
-       
-        <div className="d-flex gap-4 flex-wrap">
-        <CustomCard
-        title="The Kite Runner"
-        img="https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1327976246l/12532265.jpg"
-        summary="The Kite Runner is the first novel by Afghan-American author Khaled Hosseini. Published in 2003 by Riverhead Books, it tells the story of Amir, a young boy from the Wazir Akbar Khan district of Kabul."
-         />
-          <CustomCard
-        title="The Kite Runner"
-        img="https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1327976246l/12532265.jpg"
-        summary="The Kite Runner is the first novel by Afghan-American author Khaled Hosseini. Published in 2003 by Riverhead Books, it tells the story of Amir, a young boy from the Wazir Akbar Khan district of Kabul."
-         />
-           <CustomCard
-        title="The Kite Runner"
-        img="https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1327976246l/12532265.jpg"
-        summary="The Kite Runner is the first novel by Afghan-American author Khaled Hosseini. Published in 2003 by Riverhead Books, it tells the story of Amir, a young boy from the Wazir Akbar Khan district of Kabul."
-         />
-           <CustomCard
-        title="The Kite Runner"
-        img="https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1327976246l/12532265.jpg"
-        summary="The Kite Runner is the first novel by Afghan-American author Khaled Hosseini. Published in 2003 by Riverhead Books, it tells the story of Amir, a young boy from the Wazir Akbar Khan district of Kabul."
-         />
-         </div>
+       <div className="mt-1">{display.length} books found</div>
+        <HomeList display={display} />
       </div>
       </Container>
     </DefaultLayout>

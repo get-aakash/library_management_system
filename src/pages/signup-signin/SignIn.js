@@ -9,6 +9,7 @@ import { CustomInput } from '../../components/custom-input/CustomInput'
 import DefaultLayout from '../../components/layout/DefaultLayout'
 import { auth, db } from '../../firebase-config/firebase-config'
 import { setUser } from './userSlice'
+import { login } from './userAction'
 
 export default function () {
   const navigate = useNavigate()
@@ -44,24 +45,12 @@ export default function () {
 
       const {uid} = user
 
-      const userRef = doc(db, "users", uid)
+      dispatch(login(uid))
 
-      const docSnap = await getDoc(userRef)
-
-      if (docSnap.exists()){
-        const dbUser = docSnap.data()
       
 
-      const userObj = {
-        uid, ...dbUser
-      }
-      if(userObj.uid){
-        dispatch(setUser(userObj))
-        toast.success("SignIn successfully")
-        return
-      }
-    }
-    toast.error("Error, invalid login details")
+      
+  
     } catch (error) {
       toast.error(error.message)
       

@@ -9,6 +9,9 @@ const bookSlice = createSlice({
     initialState,
     reducers:{
         getBooksSuccess:(state, {payload}) =>{
+            if(!state.books.length && !payload.length){
+                return
+            }
             state.books = payload
         }
     }

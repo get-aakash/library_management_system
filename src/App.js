@@ -16,18 +16,20 @@ import { onAuthStateChanged } from "firebase/auth";
 import { setUser } from "./pages/signup-signin/userSlice";
 import { auth } from "./firebase-config/firebase-config";
 import { PrivateRoute } from "./components/private-route/PrivateRoute";
+import { login } from "./pages/signup-signin/userAction";
 
 function App() {
 
   const dispatch = useDispatch()
 
   onAuthStateChanged(auth, (user)=>{
-    const obj = {
-      uid: user?.uid,
-      email:user?.email,
-      displayName: user?.displayName
-    }
-    dispatch(setUser(obj))
+    // const obj = {
+    //   uid: user?.uid,
+    //   email:user?.email,
+    //   displayName: user?.displayName
+    // }
+    // dispatch(setUser(obj))
+    dispatch(login(user.uid))
   })
 
 

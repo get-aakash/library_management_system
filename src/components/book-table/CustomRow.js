@@ -1,5 +1,7 @@
 import React from 'react'
 import { Button, Col, Row } from 'react-bootstrap'
+import { Ratings } from '../ratings/Ratings'
+
 
 const CustomRow = ({book}) => {
     
@@ -9,14 +11,7 @@ const CustomRow = ({book}) => {
     <Col><h4>{book?.title}</h4>
     <p>{book?.summary}</p>
     <div className='d-flex justify-content-between'>
-        <div className='ratings text-warning'>
-            <i className='fa-solid fa-star'></i>
-            <i className='fa-solid fa-star'></i>
-            <i className='fa-solid fa-star'></i>
-            <i className='fa-solid fa-star'></i>
-            <i className='fa-solid fa-star'></i>
-
-        </div>
+        <Ratings ratings={book?.ratings} />
     <Button variant="warning">Edit</Button>
     </div>
     </Col>
