@@ -24,19 +24,7 @@ export default function BookList() {
     <AdminLayout>
       <Container>
         <h3 className='mt-5'>Book Management</h3>
-        <div className="d-flex justify-content-between mt-5">
-        <Form.Group>
-            <input
-              type="text"
-              placeholder="search book title"
-              className="form-control"
-            />
-          </Form.Group>
-          <Link to="/admin/new">
-            <Button variant="primary"> + Add New Book</Button>
-          </Link>
-          </div>
-          <hr />
+       
           <BookTable books={books} />
       </Container>
     </AdminLayout>

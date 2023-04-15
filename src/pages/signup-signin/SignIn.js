@@ -9,7 +9,7 @@ import { CustomInput } from '../../components/custom-input/CustomInput'
 import DefaultLayout from '../../components/layout/DefaultLayout'
 import { auth, db } from '../../firebase-config/firebase-config'
 import { setUser } from './userSlice'
-import { login } from './userAction'
+import { autoLogin } from './userAction'
 
 export default function () {
   const navigate = useNavigate()
@@ -44,12 +44,9 @@ export default function () {
       const {user} = await userPending
 
       const {uid} = user
-
-      dispatch(login(uid))
-
       
 
-      
+      dispatch(autoLogin(uid))
   
     } catch (error) {
       toast.error(error.message)

@@ -16,7 +16,7 @@ import { onAuthStateChanged } from "firebase/auth";
 import { setUser } from "./pages/signup-signin/userSlice";
 import { auth } from "./firebase-config/firebase-config";
 import { PrivateRoute } from "./components/private-route/PrivateRoute";
-import { login } from "./pages/signup-signin/userAction";
+import { autoLogin } from "./pages/signup-signin/userAction";
 
 function App() {
 
@@ -29,7 +29,8 @@ function App() {
     //   displayName: user?.displayName
     // }
     // dispatch(setUser(obj))
-    dispatch(login(user.uid))
+    
+    dispatch(autoLogin(user?.uid))
   })
 
 
