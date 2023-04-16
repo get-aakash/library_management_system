@@ -3,15 +3,20 @@ import React from 'react'
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { auth } from '../firebase-config/firebase-config';
+import { setUser } from '../pages/signup-signin/userSlice';
+
 
 export default function Header() {
-  const {user} = useSelector((state)=>state.user)
+  const dispatch = useDispatch();
+  const { user } = useSelector((state) => state.user)
+  
   const handleOnLogOut = ()=>{
     signOut(auth).then(()=>{
+      dispatch(setUser({}));
       toast.success("logout successfully")
     })
     .catch((error)=>toast.error(error.message))

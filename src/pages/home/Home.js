@@ -4,15 +4,18 @@ import { CustomCard } from '../../components/custom-card/CustomCard'
 import { Hero } from '../../components/home/Hero'
 import DefaultLayout from '../../components/layout/DefaultLayout'
 import HomeList from '../../components/home-list/HomeList'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import { getBookAction } from "../books/bookAction";
 
 export default function Home() {
+  const dispatch = useDispatch()
   const [display, setDisplay] = useState([])
   const {books} = useSelector((state)=>state.books)
 
-  useEffect(()=>{
-    setDisplay(books)
-  },[books])
+  useEffect(() => {
+    setDisplay(books);
+    !books.length && dispatch(getBookAction());
+  }, [books]);
 
   const handleOnChange = (e)=>{
     const {value} = e.target

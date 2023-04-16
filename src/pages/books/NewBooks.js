@@ -7,7 +7,14 @@ import { addBookAction } from './bookAction'
 import { Link, useNavigate } from 'react-router-dom'
 
 
-const initialState = {thumbnail:"", title:"", summary:"", ratings:""}
+const initialState = {
+  thumbnail:"", 
+  title:"", 
+  summary:"", 
+  ratings:"",
+  available: true,
+  availableFrom: Date()
+}
 export default function NewBooks() {
   const navigate = useNavigate()
   const [form, setForm] = useState(initialState)
@@ -23,7 +30,19 @@ export default function NewBooks() {
     placeholder:"Book Title",
     label: "Book Name",
     required: true
-  },
+  },{
+  name: "author",
+  type: "text",
+  placeholder:"Author Name",
+  label: "Author",
+  required: true
+},{
+  name: "published",
+  type: "number",
+  label: "Year Published",
+  placeholder: 2000,
+  required: true
+},
   {
     name: "ratings",
     type: "number",
